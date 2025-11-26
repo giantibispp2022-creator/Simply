@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our 4 Month Anniversary Surprise</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Pacifico&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fce7f3; /* Light pink background */
+            height: 100vh;
+            display: flex;
+            flex-direction: column; /* Allows content stacking */
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            overflow-y: auto; /* Enable scrolling for both sections */
+            min-height: 100vh;
+        }
+        
+        /* --- General Cute Styling --- */
+        .cute-button {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(255, 105, 180, 0.4), 0 2px 4px -2px rgba(255, 105, 180, 0.3);
+        }
+        .cute-button:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 10px -1px rgba(255, 105, 180, 0.6), 0 4px 6px -2px rgba(255, 105, 180, 0.4);
+        }
+        .cute-button:active {
+            transform: translateY(0) scale(1.0);
+            box-shadow: 0 4px 6px -1px rgba(255, 105, 180, 0.4), 0 2px 4px -2px rgba(255, 105, 180, 0.3);
+        }
+
+        /* Heart Animation for Aesthetic */
+        .heart {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background-color: #ff69b4;
+            transform: rotate(-45deg);
+            animation: pulse 4s infinite, float 10s infinite;
+            opacity: 0.8;
+            border-radius: 50% 0 50% 0;
+            z-index: 0;
+        }
+        .heart::before, .heart::after {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: #ff69b4;
+        }
+        .heart::before { top: -50%; left: 0; }
+        .heart::after { left: 50%; top: 0; }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1.0) rotate(-45deg); }
+            50% { transform: scale(1.1) rotate(-45deg); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0) rotate(-45deg); }
+            25% { transform: translateY(-10px) translateX(5px) rotate(-45deg); }
+            50% { transform: translateY(5px) translateX(-5px) rotate(-45deg); }
+            75% { transform: translateY(-5px) translateX(5px) rotate(-45deg); }
+        }
+
+        /* Heart positions (Adjusted for better visibility with two sections) */
+        .heart-1 { top: 5%; left: 10%; animation-duration: 6s; opacity: 0.7; width: 10px; height: 10px; }
+        .heart-2 { bottom: 15%; right: 5%; animation-delay: 2s; animation-duration: 8s; opacity: 0.6; }
+        .heart-3 { top: 20%; right: 20%; animation-delay: 4s; animation-duration: 5s; opacity: 0.9; width: 20px; height: 20px; }
+        .heart-4 { bottom: 5%; left: 30%; animation-delay: 1s; animation-duration: 7s; opacity: 0.5; }
+        .heart-5 { top: 40%; left: 5%; animation-delay: 3s; animation-duration: 9s; opacity: 0.8; width: 12px; height: 12px; }
+
+        /* --- Envelope Section Styling --- (From 11.html, adapted) */
+        .envelope-section {
+            display: none; /* Initially hidden */
+            margin-top: 40px;
+            padding: 20px;
+            background: #ffe6f2; /* Match body background for continuity */
+            border-radius: 15px;
+            z-index: 10;
+        }
+
+        .envelope-container {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            cursor: pointer;
+            transition: transform 0.5s ease;
+            margin: 0 auto;
+        }
+
+        .envelope-container:hover {
+            transform: scale(1.05);
+        }
+
+        .envelope {
+            width: 100%;
+            height: 100%;
+            background: #ffeef7;
+            border: 2px solid #ff9ecb;
+            border-radius: 10px;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .flap {
+            width: 100%;
+            height: 100%;
+            background: #ffbfd4;
+            clip-path: polygon(0 0, 100% 0, 50% 60%);
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform-origin: top;
+            transition: transform 0.8s ease;
+        }
+
+        .message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #d14679;
+            opacity: 1;
+            transition: opacity 0.8s ease;
+            z-index: 20; /* Ensure message is above photo initially */
+        }
+
+        .photo-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 1s ease;
+        }
+
+        .photo-container img {
+            width: 250px; /* Slightly smaller for better fit */
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .open .flap {
+            transform: rotateX(180deg);
+        }
+
+        .open .message {
+            opacity: 0;
+        }
+
+        .open .photo-container {
+            transform: translate(-50%, -50%) scale(1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="heart heart-1"></div>
+    <div class="heart heart-2"></div>
+    <div class="heart heart-3"></div>
+    <div class="heart heart-4"></div>
+    <div class="heart heart-5"></div>
+
+    <div id="card-section" class="w-full max-w-xl p-8 bg-white rounded-3xl shadow-2xl border-4 border-pink-300 relative z-10 
+                        transform transition-all duration-500 hover:scale-[1.01] overflow-hidden 
+                        sm:p-10 md:p-12 lg:p-16">
+        
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-pink-600 mb-2 font-['Pacifico'] text-center">
+            Happy Anniversary 4 months!
+        </h1>
+        <p class="text-lg sm:text-xl text-gray-500 mb-8 text-center">
+            To my best girlfriend in the world bong 💖
+        </p>
+
+        <div class="mb-8">
+            <textarea id="anniversary-message" rows="8"
+                      class="w-full p-4 text-gray-700 bg-pink-50 border-2 border-pink-200 rounded-xl focus:ring-4 focus:ring-pink-300 focus:border-pink-500 resize-none 
+                             transition duration-200 shadow-inner text-base leading-relaxed"
+                      placeholder="Type your personal, heartfelt message here...">
+Dear my chy chy bong,
+Happy anniversary 4 months nob 80, thank you for being the light of my life and filling my days with love. bong ort mean ey jren ehh so i decide to make you this. anyway take care ur self more songsa oun nov nis barom pi bong jea nexxxxx, hope you like it
+我真的很爱你, 
+我的 chy chy bong ❤️
+            </textarea>
+            <p id="copy-status" class="mt-2 text-center text-sm text-green-600 opacity-0 transition-opacity duration-300">
+                Message copied! Ready to 'mail' it!
+            </p>
+        </div>
+
+        <button onclick="copyMessage()"
+                class="cute-button w-full px-6 py-3 text-lg font-semibold rounded-full text-white bg-pink-500 hover:bg-pink-600 focus:outline-none focus:ring-4 focus:ring-pink-300 transition duration-300 flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path>
+                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
+            </svg>
+            Copy Message to Share (Simulated Mail)
+        </button>
+        
+        <button id="reveal-envelope-btn" onclick="revealEnvelope()"
+                class="cute-button w-full px-6 py-3 text-lg font-semibold rounded-full text-white bg-red-400 hover:bg-red-500 focus:outline-none focus:ring-4 focus:ring-red-300 transition duration-300 flex items-center justify-center">
+            Next Surprise!
+        </button>
+    </div>
+
+    <div id="envelope-section" class="envelope-section text-center">
+        <h2 class="text-2xl font-bold text-pink-700 mb-6 font-['Pacifico']">Click the Envelope for a Special Photo!</h2>
+        <div class="envelope-container" onclick="openEnvelope()">
+            <div class="envelope">
+                <div class="flap"></div>
+                <div class="message">Berk mer mer</div> 
+                <div class="photo-container">
+                    <img src="IMG_7522.jpg" alt="Anniversary Photo" />
+                </div>
+            </div>
+        </div>
+
+        <button id="downloadBtn" onclick="downloadPhoto()"
+                class="cute-button mt-6 px-6 py-3 text-lg font-semibold rounded-full text-white bg-pink-500 hover:bg-pink-600 focus:outline-none focus:ring-4 focus:ring-pink-300 transition duration-300">
+            Download Photo
+        </button>
+    </div>
+
+    <script>
+        // Function from riri copy.html
+        function copyMessage() {
+            const textarea = document.getElementById('anniversary-message');
+            const statusElement = document.getElementById('copy-status');
+            
+            textarea.select();
+            textarea.setSelectionRange(0, 99999);
+
+            try {
+                // Use modern Clipboard API for better practice
+                navigator.clipboard.writeText(textarea.value).then(() => {
+                    statusElement.textContent = "Message copied successfully! Ready to 'mail' it!";
+                    statusElement.className = 'mt-2 text-center text-sm text-green-600 opacity-100 transition-opacity duration-300';
+                }, () => {
+                    // Fallback for older browsers
+                    document.execCommand('copy'); 
+                    statusElement.textContent = "Message copied successfully! Ready to 'mail' it!";
+                    statusElement.className = 'mt-2 text-center text-sm text-green-600 opacity-100 transition-opacity duration-300';
+                });
+
+            } catch (err) {
+                console.error('Copy failed:', err);
+                statusElement.textContent = "Error: Could not copy message. Please select and copy manually.";
+                statusElement.className = 'mt-2 text-center text-sm text-red-600 opacity-100 transition-opacity duration-300';
+            }
+            
+            setTimeout(() => {
+                statusElement.className = 'mt-2 text-center text-sm text-green-600 opacity-0 transition-opacity duration-300';
+            }, 3000);
+        }
+
+        // Function to reveal the second section
+        function revealEnvelope() {
+            document.getElementById('envelope-section').style.display = 'block';
+            document.getElementById('reveal-envelope-btn').style.display = 'none'; // Hide the button after use
+            
+            // Scroll to the new section
+            document.getElementById('envelope-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Function from 11.html
+        function openEnvelope() {
+            const container = document.querySelector('.envelope-container');
+            container.classList.add('open');
+        }
+
+        function downloadPhoto() {
+            const img = document.querySelector('.photo-container img');
+            const link = document.createElement('a');
+            link.href = img.src;
+            link.download = 'happy-anniversary-4months.jpg';
+            link.click();
+        }
+    </script>
+</body>
+</html>
